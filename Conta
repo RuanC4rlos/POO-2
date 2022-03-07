@@ -1,0 +1,40 @@
+class Cliente:
+
+    def __init__(self,nome , sobrenome, cpf):
+        self._nome = nome
+        self._sobrenome = sobrenome
+        self._cpf = cpf
+
+class Conta:
+
+    def __init__(self, numero, cliente, saldo, limite):
+        self._numero = numero
+        self._titular = cliente
+        self._saldo = saldo
+        self._limite = limite
+        self._transacoes = []
+
+    def set_deposita(self, valor):
+        self._saldo += valor
+        self._transacoes.append("Deposito de {}".format(valor))
+
+    def set_sacar(self, valor):
+        if valor <= self._saldo + self._limite:
+            self._saldo = self._saldo - valor
+            self._transacoes.append("Saque de {}".format(valor))
+
+    def extrato(self):
+        for i in self._transacoes:
+            print(i)
+        print("Saldo total:", self._saldo)
+
+cliente1 = Cliente('Antonho','Batista','123123123-11')
+cliente2 = Cliente('Tais','Oliveira','123456789-22')
+
+c1 = Conta('111', cliente1, 500, 100)
+c2 = Conta('222', cliente2, 500, 100)
+
+c1.set_sacar(10)
+c1.set_deposita(50)
+
+c1.extrato()
